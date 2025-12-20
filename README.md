@@ -107,7 +107,8 @@ CREATE TABLE IF NOT EXISTS logs (
 CREATE TABLE IF NOT EXISTS stats (
     date TEXT PRIMARY KEY,
     count INTEGER DEFAULT 0
-);```
+);
+```
 
 
 ## 📂 代码版本说明
