@@ -10,7 +10,9 @@
 
 # 优先级：环境变量-D1数据库-KV空间-本地硬编码
 
-# stallTCPV1图文教程： [stallTCPV1图文后台版](https://lh.hilh0923.hidns.co/lh/stallTCP1-3V1)
+# stallTCPV2图文教程【与V1没有任何区别】：
+
+[stallTCPV1图文后台版](https://lh.hilh0923.hidns.co/lh/stallTCP1-3V1)
 
 
 # 懒人食用指南：
