@@ -1610,55 +1610,44 @@ function dashPage(host, uuid, proxyip, subpass, subdomain, converter, env, clien
             100% { transform: rotate(360deg); }
         }
 
-        /* 球体中心 - 只显示数字 */
+        /* 球体中心 - 修正版：绝对居中，增加Padding防止触碰圆环 */
         .sphere-center {
-            position: relative;
-            z-index: 5;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            padding: 20px;
+            z-index: 10;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 18%; /* 动态Padding，确保文字永远在圆环内 */
+            pointer-events: none;
+            box-sizing: border-box;
         }
 
-        /* 球体数字 - 完全防止溢出 */
+        /* 球体数字 - 修正版：智能换行，动态字号 */
         .sphere-value {
             font-size: 2.5rem;
             font-weight: 700;
-            background: linear-gradient(135deg, var(--glass-blue), var(--glass-cyan));
-            background: -webkit-linear-gradient(135deg, var(--glass-blue), var(--glass-cyan));
-            background: -moz-linear-gradient(135deg, var(--glass-blue), var(--glass-cyan));
-            -webkit-background-clip: text;
-            -moz-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            -moz-text-fill-color: transparent;
-            color: var(--glass-blue);
+            color: var(--glass-cyan);
+            text-shadow: 0 0 20px rgba(67, 233, 229, 0.5);
             font-family: 'Courier New', 'Consolas', 'Monaco', monospace;
-            line-height: 1;
-            word-wrap: break-word;
-            word-break: break-word;
-            overflow-wrap: anywhere;
-            -webkit-hyphens: manual;
-            -moz-hyphens: manual;
-            -ms-hyphens: manual;
-            hyphens: manual;
+            line-height: 1.1; /* 紧凑行高，适应多行显示 */
+            word-wrap: break-word; /* 允许单词内换行 */
+            word-break: break-word; /* 强制长单词/数字断行，防止溢出 */
+            overflow-wrap: break-word; /* 现代浏览器断行支持 */
+            white-space: normal; /* 允许自然换行 */
             display: block;
             width: 100%;
-            max-width: 160px;
-            max-height: 160px;
-            overflow: hidden;
+            max-width: 100%;
             text-align: center;
-            padding: 10px;
-            box-sizing: border-box;
-            text-rendering: optimizeLegibility;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            margin: 0 auto;
         }
 
-        /* 根据内容长度自动缩小字体 */
+        /* 根据内容长度自动缩小字体 - 针对桌面端微调 */
         .sphere-value[data-length="short"] { font-size: 3rem; }
         .sphere-value[data-length="medium"] { font-size: 2.2rem; }
         .sphere-value[data-length="long"] { font-size: 1.6rem; }
@@ -2174,10 +2163,13 @@ function dashPage(host, uuid, proxyip, subpass, subdomain, converter, env, clien
             .sphere-ring:nth-child(1) { width: 165px; height: 165px; border-width: 2.5px; }
             .sphere-ring:nth-child(2) { width: 135px; height: 135px; border-width: 2.5px; }
             .sphere-ring:nth-child(3) { width: 105px; height: 105px; border-width: 2.5px; }
+            
+            /* 手机端字号进一步缩小，防止溢出 */
             .sphere-value[data-length="short"] { font-size: 2.5rem; }
             .sphere-value[data-length="medium"] { font-size: 1.8rem; }
             .sphere-value[data-length="long"] { font-size: 1.4rem; }
-            .sphere-value[data-length="verylong"] { font-size: 1rem; }
+            .sphere-value[data-length="verylong"] { font-size: 0.9rem; } /* 缩小到0.9rem，确保超长文本能容纳 */
+
             .sphere-label { font-size: 0.85rem; }
             .sphere-subtitle { font-size: 0.75rem; }
             .input-group-row { flex-direction: column; }
@@ -2208,10 +2200,13 @@ function dashPage(host, uuid, proxyip, subpass, subdomain, converter, env, clien
             .sphere-ring:nth-child(1) { width: 148px; height: 148px; border-width: 2px; }
             .sphere-ring:nth-child(2) { width: 122px; height: 122px; border-width: 2px; }
             .sphere-ring:nth-child(3) { width: 96px; height: 96px; border-width: 2px; }
+            
+            /* 超小屏字体调整 */
             .sphere-value[data-length="short"] { font-size: 2rem; }
             .sphere-value[data-length="medium"] { font-size: 1.5rem; }
             .sphere-value[data-length="long"] { font-size: 1.2rem; }
-            .sphere-value[data-length="verylong"] { font-size: 0.9rem; }
+            .sphere-value[data-length="verylong"] { font-size: 0.8rem; } /* 极限压缩 */
+
             .sphere-label { font-size: 0.75rem; letter-spacing: 1px; }
             .sphere-subtitle { font-size: 0.68rem; }
         }
